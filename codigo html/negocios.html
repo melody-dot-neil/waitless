@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>WaitLess | Nuestros negocios</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #071426;
+            color: #ffffff;
+        }
+
+        .barra-superior {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 7%;
+            background: #0b1d35;
+            border-bottom: 1px solid #183c63;
+        }
+
+        .logo {
+            color: #ffffff;
+            font-size: 25px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #1685ff;
+        }
+
+        .volver {
+            color: #ffffff;
+            text-decoration: none;
+            background: #12365d;
+            padding: 10px 16px;
+            border-radius: 9px;
+        }
+
+        .contenedor {
+            width: min(1100px, 92%);
+            margin: 45px auto;
+        }
+
+        .encabezado {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .encabezado h1 {
+            margin-bottom: 12px;
+            font-size: clamp(28px, 5vw, 40px);
+        }
+
+        .encabezado p {
+            color: #b8c8dc;
+            line-height: 1.6;
+        }
+
+        .negocios {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .tarjeta {
+            padding: 25px 20px;
+            background: #0c213d;
+            border: 1px solid #194773;
+            border-radius: 16px;
+            text-align: center;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .tarjeta:hover {
+            transform: translateY(-4px);
+            border-color: #1685ff;
+        }
+
+        .icono {
+            font-size: 43px;
+            margin-bottom: 12px;
+        }
+
+        .tarjeta h2 {
+            font-size: 20px;
+            margin: 10px 0;
+        }
+
+        .tarjeta p {
+            color: #b8c8dc;
+            font-size: 14px;
+            line-height: 1.5;
+            min-height: 42px;
+        }
+
+        .boton {
+            display: inline-block;
+            width: 100%;
+            margin-top: 12px;
+            padding: 12px;
+            border: none;
+            border-radius: 9px;
+            background: #087cf0;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .boton:hover {
+            background: #0065cf;
+        }
+
+        .mensaje {
+            display: none;
+            padding: 14px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            background: #17395d;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        footer {
+            padding: 25px 15px;
+            color: #8198b5;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        @media (max-width: 800px) {
+            .negocios {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 520px) {
+            .negocios {
+                grid-template-columns: 1fr;
+            }
+
+            .contenedor {
+                margin-top: 30px;
+            }
+
+            .barra-superior {
+                padding: 16px 5%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="barra-superior">
+        <a class="logo" href="index.html">
+            Wait<span>Less</span>
+        </a>
+
+        <a class="volver" href="index.html">
+            ← Inicio
+        </a>
+    </header>
+
+    <main class="contenedor">
+
+        <section class="encabezado">
+            <h1>Nuestros negocios</h1>
+
+            <p>
+                Selecciona el negocio que deseas visitar
+                para consultar sus servicios y solicitar tu turno.
+            </p>
+        </section>
+
+        <div id="mensaje" class="mensaje" role="status"></div>
+
+        <section class="negocios">
+
+            <article class="tarjeta">
+                <div class="icono">🏥</div>
+                <h2>Clínica Salud+</h2>
+                <p>Atención médica y consultas generales.</p>
+                <button class="boton" onclick="seleccionarNegocio('Clínica Salud+')">
+                    Elegir negocio
+                </button>
+            </article>
+
+            <article class="tarjeta">
+                <div class="icono">💇</div>
+                <h2>Salón Bella</h2>
+                <p>Servicios de belleza y cuidado personal.</p>
+                <button class="boton" onclick="seleccionarNegocio('Salón Bella')">
+                    Elegir negocio
+                </button>
+            </article>
+
+            <article class="tarjeta">
+                <div class="icono">💈</div>
+                <h2>Barbería Central</h2>
+                <p>Cortes de cabello y cuidado de barba.</p>
+                <button class="boton" onclick="seleccionarNegocio('Barbería Central')">
+                    Elegir negocio
+                </button>
+            </article>
+
+            <article class="tarjeta">
+                <div class="icono">🔧</div>
+                <h2>Taller Express</h2>
+                <p>Servicios de mantenimiento y reparación.</p>
+                <button class="boton" onclick="seleccionarNegocio('Taller Express')">
+                    Elegir negocio
+                </button>
+            </article>
+
+            <article class="tarjeta">
+                <div class="icono">🦷</div>
+                <h2>DentalCare</h2>
+                <p>Atención dental y cuidado de la salud bucal.</p>
+                <button class="boton" onclick="seleccionarNegocio('DentalCare')">
+                    Elegir negocio
+                </button>
+            </article>
+
+            <article class="tarjeta">
+                <div class="icono">☕</div>
+                <h2>Café Central</h2>
+                <p>Atención para disfrutar de tus bebidas favoritas.</p>
+                <button class="boton" onclick="seleccionarNegocio('Café Central')">
+                    Elegir negocio
+                </button>
+            </article>
+
+        </section>
+
+    </main>
+
+    <footer>
+        WaitLess — Menos espera, más atención.
+    </footer>
+
+    <script>
+        function seleccionarNegocio(nombre) {
+            try {
+                localStorage.setItem("waitlessNegocio", nombre);
+
+                window.location.href = "cliente.html";
+            } catch (error) {
+                const mensaje = document.getElementById("mensaje");
+
+                mensaje.style.display = "block";
+                mensaje.textContent =
+                    "No se pudo guardar el negocio. Comprueba que estás abriendo WaitLess en un navegador.";
+            }
+        }
+    </script>
+
+</body>
+</html>

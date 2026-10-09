@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>WaitLess | Menos espera, más atención</title>
+
+    <meta
+        name="description"
+        content="WaitLess es una plataforma digital para gestionar turnos y mejorar la atención al cliente."
+    >
+
+    <style>
+        :root {
+            --fondo: #080e1c;
+            --panel: #101a2d;
+            --azul: #3978ff;
+            --azul-claro: #70a5ff;
+            --texto: #f4f7ff;
+            --texto-suave: #9baac4;
+            --borde: rgba(255, 255, 255, 0.09);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--texto);
+            background:
+                radial-gradient(
+                    ellipse at top left,
+                    rgba(45, 105, 255, 0.18),
+                    transparent 40%
+                ),
+                var(--fondo);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .navbar {
+            min-height: 78px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding: 16px 7%;
+            border-bottom: 1px solid var(--borde);
+            background: rgba(8, 14, 28, 0.92);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            display: grid;
+            place-items: center;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #4787ff, #714dff);
+            font-size: 24px;
+        }
+
+        .logo span:last-child span {
+            color: var(--azul-claro);
+        }
+
+        .nav-link {
+            color: var(--texto-suave);
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: white;
+        }
+
+        .hero {
+            width: min(1150px, 90%);
+            min-height: calc(100vh - 155px);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            align-items: center;
+            gap: 55px;
+            padding: 65px 0;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 24px;
+            padding: 10px 15px;
+            border: 1px solid rgba(112, 165, 255, 0.25);
+            border-radius: 30px;
+            color: var(--azul-claro);
+            background: rgba(57, 120, 255, 0.08);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            max-width: 700px;
+            margin-bottom: 22px;
+            font-size: clamp(43px, 6vw, 70px);
+            line-height: 1.08;
+            letter-spacing: -3px;
+        }
+
+        h1 span {
+            color: var(--azul-claro);
+        }
+
+        .description {
+            max-width: 590px;
+            margin-bottom: 32px;
+            color: var(--texto-suave);
+            font-size: 17px;
+            line-height: 1.8;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .btn {
+            min-height: 52px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 23px;
+            border: 1px solid var(--borde);
+            border-radius: 13px;
+            font-size: 14px;
+            font-weight: 700;
+            transition:
+                transform 0.2s,
+                background 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .btn-primary {
+            border: none;
+            color: white;
+            background: linear-gradient(135deg, #3978ff, #6656f6);
+            box-shadow: 0 10px 30px rgba(57, 120, 255, 0.2);
+        }
+
+        .btn-secondary {
+            background: var(--panel);
+        }
+
+        .btn-secondary:hover {
+            background: #1b2942;
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-top: 38px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            color: var(--texto-suave);
+            font-size: 12px;
+        }
+
+        .feature-icon {
+            color: #36d6a0;
+            font-size: 17px;
+        }
+
+        .visual {
+            position: relative;
+            padding: 28px;
+            border: 1px solid var(--borde);
+            border-radius: 28px;
+            background: linear-gradient(
+                145deg,
+                rgba(22, 35, 58, 0.98),
+                rgba(13, 23, 40, 0.98)
+            );
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+        }
+
+        .visual-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .visual-header h2 {
+            font-size: 17px;
+        }
+
+        .live {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            color: #36d6a0;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .live::before {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: currentColor;
+            content: "";
+        }
+
+        .ticket {
+            margin-bottom: 17px;
+            padding: 22px;
+            border: 1px solid rgba(112, 165, 255, 0.2);
+            border-radius: 18px;
+            background: rgba(57, 120, 255, 0.08);
+        }
+
+        .ticket-label {
+            color: var(--texto-suave);
+            font-size: 12px;
+        }
+
+        .ticket-number {
+            margin: 12px 0;
+            font-size: 55px;
+            font-weight: 800;
+            letter-spacing: -2px;
+        }
+
+        .ticket-status {
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 9px;
+            color: #36d6a0;
+            background: rgba(54, 214, 160, 0.1);
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .queue-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-top: 11px;
+            padding: 15px;
+            border: 1px solid var(--borde);
+            border-radius: 13px;
+            background: rgba(255, 255, 255, 0.025);
+        }
+
+        .queue-name {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .queue-description {
+            margin-top: 5px;
+            color: var(--texto-suave);
+            font-size: 11px;
+        }
+
+        .queue-number {
+            color: var(--azul-claro);
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .footer {
+            padding: 22px 5%;
+            border-top: 1px solid var(--borde);
+            color: var(--texto-suave);
+            text-align: center;
+            font-size: 12px;
+        }
+
+        @media (max-width: 850px) {
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 50px 0;
+            }
+
+            .visual {
+                width: 100%;
+                max-width: 550px;
+                margin: 0 auto;
+            }
+
+            h1 {
+                letter-spacing: -2px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .navbar {
+                padding: 13px 5%;
+            }
+
+            .logo {
+                font-size: 21px;
+            }
+
+            .nav-link {
+                font-size: 12px;
+            }
+
+            .hero {
+                width: 90%;
+                padding: 40px 0;
+            }
+
+            h1 {
+                font-size: 43px;
+            }
+
+            .description {
+                font-size: 15px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .visual {
+                padding: 18px;
+            }
+
+            .ticket-number {
+                font-size: 47px;
+            }
+
+            .features {
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+
+        <a class="logo" href="index.html" aria-label="Inicio de WaitLess">
+            <span class="logo-icon">⏱️</span>
+            <span>Wait<span>Less</span></span>
+        </a>
+
+        <a class="nav-link" href="negocios.html">
+            Explorar negocios →
+        </a>
+
+    </header>
+
+    <main class="hero">
+
+        <section>
+
+            <div class="badge">
+                ✦ PLATAFORMA DIGITAL DE ATENCIÓN
+            </div>
+
+            <h1>
+                Menos espera,<br>
+                <span>más atención.</span>
+            </h1>
+
+            <p class="description">
+                Bienvenido a WaitLess, una plataforma diseñada para
+                facilitar la gestión de turnos de micro y pequeñas
+                empresas. Organiza tu tiempo, solicita tu turno y
+                disfruta de una atención más ordenada.
+            </p>
+
+            <div class="buttons">
+
+                <a
+                    href="negocios.html"
+                    class="btn btn-primary"
+                >
+                    👤 Soy cliente
+                    <span>→</span>
+                </a>
+
+                <a
+                    href="negocio.html"
+                    class="btn btn-secondary"
+                >
+                    🏢 Soy negocio
+                    <span>→</span>
+                </a>
+
+            </div>
+
+            <div class="features">
+
+                <div class="feature">
+                    <span class="feature-icon">✓</span>
+                    <span>Turnos digitales</span>
+                </div>
+
+                <div class="feature">
+                    <span class="feature-icon">✓</span>
+                    <span>Atención organizada</span>
+                </div>
+
+                <div class="feature">
+                    <span class="feature-icon">✓</span>
+                    <span>Menos filas innecesarias</span>
+                </div>
+
+            </div>
+
+        </section>
+
+        <aside class="visual">
+
+            <div class="visual-header">
+                <h2>Así funciona WaitLess</h2>
+                <span class="live">DEMO</span>
+            </div>
+
+            <div class="ticket">
+
+                <p class="ticket-label">
+                    EJEMPLO DE TURNO
+                </p>
+
+                <div class="ticket-number">
+                    #024
+                </div>
+
+                <span class="ticket-status">
+                    ✓ Turno registrado
+                </span>
+
+            </div>
+
+            <div class="queue-item">
+
+                <div>
+                    <p class="queue-name">
+                        Solicita tu turno
+                    </p>
+
+                    <p class="queue-description">
+                        Selecciona el negocio y el servicio
+                    </p>
+                </div>
+
+                <span class="queue-number">01</span>
+
+            </div>
+
+            <div class="queue-item">
+
+                <div>
+                    <p class="queue-name">
+                        Consulta tu posición
+                    </p>
+
+                    <p class="queue-description">
+                        Revisa tu espera estimada
+                    </p>
+                </div>
+
+                <span class="queue-number">02</span>
+
+            </div>
+
+            <div class="queue-item">
+
+                <div>
+                    <p class="queue-name">
+                        Recibe atención
+                    </p>
+
+                    <p class="queue-description">
+                        El negocio gestiona la fila
+                    </p>
+                </div>
+
+                <span class="queue-number">03</span>
+
+            </div>
+
+        </aside>
+
+    </main>
+
+    <footer class="footer">
+        <p>
+            © 2026 WaitLess · Menos espera, más atención.
+        </p>
+    </footer>
+
+</body>
+</html>

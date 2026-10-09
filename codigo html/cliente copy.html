@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>WaitLess | Mi turno</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f8fc;
+            color: #172033;
+        }
+
+        header {
+            background: white;
+            border-bottom: 1px solid #e6ebf2;
+            padding: 18px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: #1769ff;
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #526071;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            color: #1769ff;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 45px auto;
+        }
+
+        .top-section {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .mini-title {
+            color: #1769ff;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+        }
+
+        .top-section h1 {
+            font-size: 38px;
+            margin-bottom: 12px;
+        }
+
+        .top-section p {
+            color: #687386;
+        }
+
+        .business-card {
+            background: white;
+            border: 1px solid #e6ebf2;
+            border-radius: 20px;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(30, 50, 80, 0.05);
+        }
+
+        .business-info {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .business-icon {
+            width: 65px;
+            height: 65px;
+            border-radius: 17px;
+            background: #edf4ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+
+        .business-info h2 {
+            font-size: 24px;
+            margin-bottom: 7px;
+        }
+
+        .business-info p {
+            color: #687386;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: #e9f9ef;
+            color: #198754;
+            padding: 8px 13px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #22b573;
+            border-radius: 50%;
+        }
+
+        .change-business {
+            text-decoration: none;
+            color: #1769ff;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .section-title {
+            margin-bottom: 18px;
+        }
+
+        .section-title h2 {
+            font-size: 25px;
+            margin-bottom: 6px;
+        }
+
+        .section-title p {
+            color: #718096;
+        }
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .service-card {
+            background: white;
+            border: 1px solid #e6ebf2;
+            border-radius: 18px;
+            padding: 25px;
+            box-shadow: 0 7px 22px rgba(30, 50, 80, 0.04);
+            transition: 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            border-color: #cbdcff;
+        }
+
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: #edf4ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 23px;
+            margin-bottom: 17px;
+        }
+
+        .service-card h3 {
+            font-size: 19px;
+            margin-bottom: 8px;
+        }
+
+        .service-card p {
+            color: #718096;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 18px;
+        }
+
+        .service-button {
+            width: 100%;
+            border: none;
+            background: #1769ff;
+            color: white;
+            padding: 13px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .service-button:hover {
+            background: #0d57dd;
+        }
+
+        .turn-section {
+            background: white;
+            border: 1px solid #e6ebf2;
+            border-radius: 22px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(30, 50, 80, 0.05);
+        }
+
+        .turn-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .turn-header h2 {
+            font-size: 24px;
+        }
+
+        .turn-status {
+            padding: 8px 13px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: bold;
+            background: #f0f2f5;
+            color: #687386;
+        }
+
+        .turn-content {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .turn-number-box {
+            background: #edf4ff;
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .turn-number-box small {
+            display: block;
+            color: #718096;
+            margin-bottom: 7px;
+        }
+
+        .turn-number {
+            font-size: 50px;
+            font-weight: bold;
+            color: #1769ff;
+        }
+
+        .turn-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .detail {
+            background: #f7f9fc;
+            border-radius: 14px;
+            padding: 18px;
+        }
+
+        .detail small {
+            display: block;
+            color: #718096;
+            margin-bottom: 7px;
+        }
+
+        .detail strong {
+            font-size: 20px;
+        }
+
+        .service-name {
+            color: #1769ff;
+            font-size: 16px !important;
+        }
+
+        .cancel-button {
+            margin-top: 20px;
+            background: white;
+            border: 1px solid #e34b4b;
+            color: #d63d3d;
+            padding: 11px 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .cancel-button:hover {
+            background: #fff3f3;
+        }
+
+        .empty-turn {
+            text-align: center;
+            padding: 25px;
+            color: #718096;
+        }
+
+        .queue-info {
+            margin-top: 20px;
+            padding: 15px 18px;
+            background: #f5f8ff;
+            border-radius: 12px;
+            color: #536174;
+            font-size: 14px;
+        }
+
+        footer {
+            margin-top: 60px;
+            background: #111827;
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+
+        footer .footer-logo {
+            font-size: 23px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        footer p {
+            color: #aab3c2;
+            font-size: 14px;
+        }
+
+        @media (max-width: 800px) {
+
+            .business-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .services {
+                grid-template-columns: 1fr;
+            }
+
+            .turn-content {
+                grid-template-columns: 1fr;
+            }
+
+            .turn-details {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 16px 5%;
+            }
+
+            nav {
+                gap: 12px;
+            }
+
+            nav a {
+                font-size: 13px;
+            }
+
+            .container {
+                width: 92%;
+                margin-top: 30px;
+            }
+
+            .top-section h1 {
+                font-size: 30px;
+            }
+
+            .business-info h2 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        WaitLess
+    </div>
+
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="negocios.html">Negocios</a>
+        <a href="#mi-turno">Mi turno</a>
+    </nav>
+
+</header>
+
+
+<main class="container">
+
+    <section class="top-section">
+
+        <p class="mini-title">
+            ATENCIÓN DIGITAL
+        </p>
+
+        <h1>
+            Solicita tu turno
+        </h1>
+
+        <p>
+            Selecciona el servicio que necesitas y evita las filas.
+        </p>
+
+    </section>
+
+
+    <!-- NEGOCIO -->
+
+    <section class="business-card">
+
+        <div class="business-info">
+
+            <div
+                class="business-icon"
+                id="businessIcon">
+                🏥
+            </div>
+
+            <div>
+
+                <h2 id="businessName">
+                    Clínica Salud+
+                </h2>
+
+                <p id="businessCategory">
+                    Salud • Atención al cliente
+                </p>
+
+                <div class="status">
+
+                    <span class="status-dot"></span>
+
+                    Disponible ahora
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <a
+            href="negocios.html"
+            class="change-business">
+
+            ← Cambiar negocio
+
+        </a>
+
+    </section>
+
+
+    <!-- SERVICIOS -->
+
+    <section>
+
+        <div class="section-title">
+
+            <h2>
+                Servicios disponibles
+            </h2>
+
+            <p>
+                Elige el servicio que deseas solicitar.
+            </p>
+
+        </div>
+
+
+        <div
+            class="services"
+            id="servicesContainer">
+        </div>
+
+    </section>
+
+
+    <!-- MI TURNO -->
+
+    <section
+        class="turn-section"
+        id="mi-turno">
+
+        <div class="turn-header">
+
+            <h2>
+                Mi turno
+            </h2>
+
+            <div
+                class="turn-status"
+                id="turnStatus">
+
+                Sin turno
+
+            </div>
+
+        </div>
+
+
+        <div id="turnContent">
+
+            <div class="empty-turn">
+
+                Todavía no tienes un turno.
+
+                <br>
+
+                Selecciona un servicio para comenzar.
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <div class="footer-logo">
+        WaitLess
+    </div>
+
+    <p>
+        Menos espera, más atención.
+    </p>
+
+    <p style="margin-top: 8px;">
+        © 2026 WaitLess. Plataforma digital de atención.
+    </p>
+
+</footer>
+
+
+<script>
+
+    /* =====================================================
+       CONFIGURACIÓN DE LOS NEGOCIOS
+       ===================================================== */
+
+    const negocios = {
+
+        "Clínica Salud+": {
+            icono: "🏥",
+            categoria: "Salud",
+
+            servicios: [
+                {
+                    nombre: "Consulta general",
+                    descripcion: "Atención médica general para consultas y molestias.",
+                    icono: "🩺"
+                },
+
+                {
+                    nombre: "Consulta de seguimiento",
+                    descripcion: "Seguimiento y control de consultas anteriores.",
+                    icono: "📋"
+                }
+            ]
+        },
+
+
+        "Salón Bella": {
+            icono: "💇",
+            categoria: "Belleza",
+
+            servicios: [
+                {
+                    nombre: "Corte de cabello",
+                    descripcion: "Servicio de corte y arreglo de cabello.",
+                    icono: "✂️"
+                },
+
+                {
+                    nombre: "Manicure",
+                    descripcion: "Cuidado y arreglo profesional de uñas.",
+                    icono: "💅"
+                }
+            ]
+        },
+
+
+        "Barbería Central": {
+            icono: "💈",
+            categoria: "Barbería",
+
+            servicios: [
+                {
+                    nombre: "Corte de cabello",
+                    descripcion: "Corte de cabello personalizado según tu estilo.",
+                    icono: "✂️"
+                },
+
+                {
+                    nombre: "Barba",
+                    descripcion: "Perfilado y cuidado de barba.",
+                    icono: "🧔"
+                }
+            ]
+        },
+
+
+        "Taller Express": {
+            icono: "🔧",
+            categoria: "Servicios",
+
+            servicios: [
+                {
+                    nombre: "Cambio de aceite",
+                    descripcion: "Servicio de cambio de aceite para tu vehículo.",
+                    icono: "🛢️"
+                },
+
+                {
+                    nombre: "Revisión general",
+                    descripcion: "Revisión básica del estado del vehículo.",
+                    icono: "🔍"
+                }
+            ]
+        },
+
+
+        "DentalCare": {
+            icono: "🦷",
+            categoria: "Salud",
+
+            servicios: [
+                {
+                    nombre: "Consulta dental",
+                    descripcion: "Evaluación general de tu salud dental.",
+                    icono: "🦷"
+                },
+
+                {
+                    nombre: "Limpieza dental",
+                    descripcion: "Servicio profesional de limpieza dental.",
+                    icono: "✨"
+                }
+            ]
+        },
+
+
+        "Café Central": {
+            icono: "☕",
+            categoria: "Servicios",
+
+            servicios: [
+                {
+                    nombre: "Pedido rápido",
+                    descripcion: "Realiza tu pedido y espera sin hacer fila.",
+                    icono: "⚡"
+                },
+
+                {
+                    nombre: "Pedido para llevar",
+                    descripcion: "Ordena con anticipación y recoge tu pedido.",
+                    icono: "🥡"
+                }
+            ]
+        }
+    };
+
+
+    const datosNegocio =
+        negocios[negocioActual];
+
+
+    /* =====================================================
+       CREAR UNA CLAVE ÚNICA PARA CADA NEGOCIO
+       ===================================================== */
+
+    function crearClaveNegocio(nombre) {
+
+        return nombre
+            .toLowerCase()       ]
+        }
+
+    };
+
+
+    /* =====================================================
+       IDENTIFICAR NEGOCIO ACTUAL
+       ===================================================== */
+
+    let negocioActual =
+        localStorage.getItem("waitlessNegocio");
+
+
+    if (
+        !negocioActual ||
+        !negocios[negocioActual]
+    ) {
+
+        negocioActual =
+            "Clínica Salud+";
+
+        localStorage.setItem(
+            "waitlessNegocio",
+            negocioActual
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/[^a-z0-9]+/g, "_")
+            .replace(/^_+|_+$/g, "");
+
+    }
+
+
+    const claveNegocio =
+        crearClaveNegocio(negocioActual);
+
+
+    /* =====================================================
+       MOSTRAR INFORMACIÓN DEL NEGOCIO
+       ===================================================== */
+
+    document.getElementById(
+        "businessName"
+    ).textContent =
+        negocioActual;
+
+
+    document.getElementById(
+        "businessIcon"
+    ).textContent =
+        datosNegocio.icono;
+
+
+    document.getElementById(
+        "businessCategory"
+    ).textContent =
+        datosNegocio.categoria +
+        " • Atención al cliente";
+
+
+    /* =====================================================
+       SERVICIOS
+       ===================================================== */
+
+    function cargarServicios() {
+
+        const container =
+            document.getElementById(
+                "servicesContainer"
+            );
+
+
+        container.innerHTML = "";
+
+
+        datosNegocio.servicios.forEach(
+            servicio => {
+
+                const card =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                card.className =
+                    "service-card";
+
+
+                card.innerHTML = `
+
+                    <div class="service-icon">
+                        ${servicio.icono}
+                    </div>
+
+                    <h3>
+                        ${servicio.nombre}
+                    </h3>
+
+                    <p>
+                        ${servicio.descripcion}
+                    </p>
+
+                    <button
+                        class="service-button"
+                        onclick="solicitarTurno('${servicio.nombre}')">
+
+                        Solicitar turno
+
+                    </button>
+
+                `;
+
+
+                container.appendChild(card);
+
+            }
+        );
+
+    }
+
+
+    cargarServicios();
+
+
+    /* =====================================================
+       CREAR / OBTENER SISTEMA DEL NEGOCIO
+       ===================================================== */
+
+    function obtenerSistemaNegocio() {
+
+        const clave =
+            "waitless_" + claveNegocio;
+
+
+        let sistema =
+            JSON.parse(
+                localStorage.getItem(clave)
+            );
+
+
+        if (!sistema) {
+
+            sistema = {
+
+                negocio:
+                    negocioActual,
+
+                turnoActual: 0,
+
+                siguienteTurno: 1,
+
+                clientes: []
+
+            };
+
+
+            localStorage.setItem(
+                clave,
+                JSON.stringify(sistema)
+            );
+
+        }
+
+
+        return sistema;
+
+    }
+
+
+    /* =====================================================
+       GUARDAR SISTEMA DEL NEGOCIO
+       ===================================================== */
+
+    function guardarSistemaNegocio(
+        sistema
+    ) {
+
+        const clave =
+            "waitless_" + claveNegocio;
+
+
+        localStorage.setItem(
+            clave,
+            JSON.stringify(sistema)
+        );
+
+    }
+
+
+    /* =====================================================
+       MI TURNO
+       ===================================================== */
+
+    function obtenerMiTurno() {
+
+        const claveTurno =
+            "waitlessMiTurno_" +
+            claveNegocio;
+
+
+        const turnoGuardado =
+            localStorage.getItem(
+                claveTurno
+            );
+
+
+        if (!turnoGuardado) {
+            return null;
+        }
+
+
+        const numero =
+            Number(turnoGuardado);
+
+
+        const sistema =
+            obtenerSistemaNegocio();
+
+
+        return sistema.clientes.find(
+            cliente =>
+                cliente.turno === numero
+        ) || null;
+
+    }
+
+
+    /* =====================================================
+       SOLICITAR TURNO
+       ===================================================== */
+
+    function solicitarTurno(servicio) {
+
+        const turnoExistente =
+            obtenerMiTurno();
+
+
+        if (
+            turnoExistente &&
+            (
+                turnoExistente.estado ===
+                "En espera" ||
+
+                turnoExistente.estado ===
+                "En atención"
+            )
+        ) {
+
+            alert(
+                "Ya tienes un turno activo en " +
+                negocioActual +
+                "."
+            );
+
+            return;
+
+        }
+
+
+        const sistema =
+            obtenerSistemaNegocio();
+
+
+        const nuevoTurno =
+            sistema.siguienteTurno;
+
+
+        sistema.clientes.push({
+
+            turno:
+                nuevoTurno,
+
+            estado:
+                "En espera",
+
+            servicio:
+                servicio,
+
+            negocio:
+                negocioActual
+
+        });
+
+
+        sistema.siguienteTurno =
+            nuevoTurno + 1;
+
+
+        guardarSistemaNegocio(
+            sistema
+        );
+
+
+        localStorage.setItem(
+            "waitlessMiTurno_" +
+            claveNegocio,
+
+            nuevoTurno
+        );
+
+
+        actualizarMiTurno();
+
+
+        document
+            .getElementById("mi-turno")
+            .scrollIntoView({
+                behavior: "smooth"
+            });
+
+    }
+
+
+    /* =====================================================
+       ACTUALIZAR MI TURNO
+       ===================================================== */
+
+    function actualizarMiTurno() {
+
+        const turno =
+            obtenerMiTurno();
+
+
+        const container =
+            document.getElementById(
+                "turnContent"
+            );
+
+
+        const status =
+            document.getElementById(
+                "turnStatus"
+            );
+
+
+        if (!turno) {
+
+            status.textContent =
+                "Sin turno";
+
+
+            status.style.background =
+                "#f0f2f5";
+
+
+            status.style.color =
+                "#687386";
+
+
+            container.innerHTML = `
+
+                <div class="empty-turn">
+
+                    Todavía no tienes un turno.
+
+                    <br>
+
+                    Selecciona un servicio para comenzar.
+
+                </div>
+
+            `;
+
+
+            return;
+
+        }
+
+
+        const sistema =
+            obtenerSistemaNegocio();
+
+
+        const personasDelante =
+            sistema.clientes.filter(
+                cliente =>
+
+                    cliente.estado ===
+                    "En espera" &&
+
+                    cliente.turno <
+                    turno.turno
+
+            ).length;
+
+
+        const tiempoEstimado =
+            personasDelante * 5;
+
+
+        let estadoIcono =
+            "🟡";
+
+
+        if (
+            turno.estado ===
+            "En atención"
+        ) {
+
+            estadoIcono =
+                "🔵";
+
+        }
+
+
+        if (
+            turno.estado ===
+            "Atendido"
+        ) {
+
+            estadoIcono =
+                "🟢";
+
+        }
+
+
+        if (
+            turno.estado ===
+            "Cancelado"
+        ) {
+
+            estadoIcono =
+                "🔴";
+
+        }
+
+
+        status.textContent =
+            estadoIcono +
+            " " +
+            turno.estado;
+
+
+        if (
+            turno.estado ===
+            "En atención"
+        ) {
+
+            status.style.background =
+                "#e7f1ff";
+
+            status.style.color =
+                "#1769ff";
+
+        }
+
+        else if (
+            turno.estado ===
+            "Atendido"
+        ) {
+
+            status.style.background =
+                "#e9f9ef";
+
+            status.style.color =
+                "#198754";
+
+        }
+
+        else if (
+            turno.estado ===
+            "Cancelado"
+        ) {
+
+            status.style.background =
+                "#fff0f0";
+
+            status.style.color =
+                "#d63d3d";
+
+        }
+
+        else {
+
+            status.style.background =
+                "#fff4d6";
+
+            status.style.color =
+                "#9a6a00";
+
+        }
+
+
+        let botonCancelar = "";
+
+
+        if (
+            turno.estado ===
+            "En espera"
+        ) {
+
+            botonCancelar = `
+
+                <button
+                    class="cancel-button"
+                    onclick="cancelarTurno()">
+
+                    Cancelar turno
+
+                </button>
+
+            `;
+
+        }
+
+
+        container.innerHTML = `
+
+            <div class="turn-content">
+
+                <div class="turn-number-box">
+
+                    <small>
+                        Tu número
+                    </small>
+
+                    <div class="turn-number">
+                        #${turno.turno}
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <div class="turn-details">
+
+                        <div class="detail">
+
+                            <small>
+                                Servicio
+                            </small>
+
+                            <strong class="service-name">
+                                ${turno.servicio}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <small>
+                                Turno actual
+                            </small>
+
+                            <strong>
+                                #${sistema.turnoActual}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <small>
+                                Personas delante
+                            </small>
+
+                            <strong>
+
+                                ${
+                                    turno.estado ===
+                                    "En espera"
+                                    ? personasDelante
+                                    : 0
+                                }
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    ${
+                        turno.estado ===
+                        "En espera"
+
+                        ? `
+
+                            <p style="
+                                margin-top:18px;
+                                color:#687386;
+                            ">
+
+                                Tiempo estimado:
+
+                                <strong style="
+                                    color:#1769ff;
+                                ">
+
+                                    ${tiempoEstimado}
+                                    minutos
+
+                                </strong>
+
+                            </p>
+
+                        `
+
+                        : ""
+                    }
+
+
+                    <div class="queue-info">
+
+                        🏢 Estás en la cola de
+                        <strong>
+                            ${negocioActual}
+                        </strong>
+
+                    </div>
+
+
+                    ${botonCancelar}
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+
+    /* =====================================================
+       CANCELAR TURNO
+       ===================================================== */
+
+    function cancelarTurno() {
+
+        const claveTurno =
+            "waitlessMiTurno_" +
+            claveNegocio;
+
+
+        const turnoGuardado =
+            localStorage.getItem(
+                claveTurno
+            );
+
+
+        if (!turnoGuardado) {
+            return;
+        }
+
+
+        const numero =
+            Number(turnoGuardado);
+
+
+        const sistema =
+            obtenerSistemaNegocio();
+
+
+        const cliente =
+            sistema.clientes.find(
+                c =>
+                    c.turno === numero
+            );
+
+
+        if (cliente) {
+
+            cliente.estado =
+                "Cancelado";
+
+
+            guardarSistemaNegocio(
+                sistema
+            );
+
+        }
+
+
+        localStorage.removeItem(
+            claveTurno
+        );
+
+
+        actualizarMiTurno();
+
+    }
+
+
+    /* =====================================================
+       INICIAR
+       ===================================================== */
+
+    actualizarMiTurno();
+
+
+    setInterval(
+        actualizarMiTurno,
+        1000
+    );
+
+</script>
+
+</body>
+</html>

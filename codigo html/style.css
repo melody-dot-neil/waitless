@@ -1,0 +1,437 @@
+/* =========================================
+   WAITLESS - DISEÑO PRINCIPAL
+   ========================================= */
+
+/* CONFIGURACIÓN GENERAL */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f8fc;
+    color: #172033;
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   ENCABEZADO
+   ========================================= */
+
+.header {
+    width: 100%;
+    height: 75px;
+    padding: 0 8%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    border-bottom: 1px solid #e8edf3;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1769aa;
+    letter-spacing: -1px;
+}
+
+nav {
+    display: flex;
+    gap: 30px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #4b5563;
+    font-size: 15px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #1769aa;
+}
+
+
+/* =========================================
+   SECCIÓN PRINCIPAL
+   ========================================= */
+
+.hero {
+    min-height: 650px;
+    padding: 90px 8%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 70px;
+    background: linear-gradient(
+        135deg,
+        #f7fbff 0%,
+        #edf6ff 100%
+    );
+}
+
+.hero-text {
+    max-width: 620px;
+}
+
+.small-title {
+    color: #1769aa;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 18px;
+}
+
+.hero h1 {
+    font-size: 64px;
+    line-height: 1.05;
+    margin-bottom: 25px;
+    color: #142033;
+}
+
+.hero h1 span {
+    color: #1769aa;
+}
+
+.description {
+    max-width: 550px;
+    font-size: 18px;
+    color: #5d6878;
+    margin-bottom: 35px;
+}
+
+
+/* =========================================
+   BOTONES
+   ========================================= */
+
+.buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-block;
+    padding: 15px 28px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.btn.primary {
+    background: #1769aa;
+    color: white;
+}
+
+.btn.primary:hover {
+    background: #0e558c;
+    transform: translateY(-2px);
+}
+
+.btn.secondary {
+    background: white;
+    color: #1769aa;
+    border: 2px solid #1769aa;
+}
+
+.btn.secondary:hover {
+    background: #1769aa;
+    color: white;
+}
+
+
+/* =========================================
+   TARJETA DE TURNO
+   ========================================= */
+
+.turn-card {
+    width: 390px;
+    background: white;
+    padding: 30px;
+    border-radius: 22px;
+    box-shadow: 0 20px 50px rgba(40, 70, 100, 0.15);
+    border: 1px solid #e6edf5;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    color: #1769aa;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.turn-card h2 {
+    font-size: 25px;
+    margin-bottom: 5px;
+}
+
+.turn-card > p {
+    color: #7a8492;
+    margin-bottom: 20px;
+}
+
+.turn-number {
+    font-size: 65px;
+    font-weight: 800;
+    text-align: center;
+    color: #1769aa;
+    padding: 15px 0;
+}
+
+.turn-info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    border-top: 1px solid #e8edf3;
+    padding-top: 20px;
+}
+
+.turn-info div {
+    text-align: center;
+}
+
+.turn-info strong {
+    display: block;
+    font-size: 18px;
+    color: #172033;
+}
+
+.turn-info small {
+    display: block;
+    color: #7a8492;
+    font-size: 11px;
+    margin-top: 4px;
+}
+
+
+/* =========================================
+   SECCIONES
+   ========================================= */
+
+.section {
+    padding: 100px 8%;
+    background: white;
+}
+
+.section-title {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 60px;
+}
+
+.section-title p {
+    color: #1769aa;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.section-title h2 {
+    font-size: 40px;
+    line-height: 1.2;
+}
+
+
+/* =========================================
+   PASOS
+   ========================================= */
+
+.steps {
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
+
+.step {
+    text-align: center;
+    padding: 25px;
+}
+
+.step-number {
+    width: 55px;
+    height: 55px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e7f3ff;
+    color: #1769aa;
+    border-radius: 50%;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.step h3 {
+    margin-bottom: 10px;
+    font-size: 19px;
+}
+
+.step p {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+
+/* =========================================
+   BENEFICIOS
+   ========================================= */
+
+.benefits {
+    background: #f5f8fc;
+}
+
+.benefit-grid {
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+}
+
+.benefit-card {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid #e6edf5;
+    transition: 0.3s;
+}
+
+.benefit-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(40, 70, 100, 0.10);
+}
+
+.icon {
+    font-size: 35px;
+    margin-bottom: 18px;
+}
+
+.benefit-card h3 {
+    margin-bottom: 10px;
+    font-size: 19px;
+}
+
+.benefit-card p {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+
+/* =========================================
+   PIE DE PÁGINA
+   ========================================= */
+
+footer {
+    padding: 45px 8%;
+    background: #142033;
+    color: white;
+    text-align: center;
+}
+
+.footer-logo {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+
+footer p {
+    color: #b9c3d0;
+}
+
+.copyright {
+    margin-top: 20px;
+    font-size: 12px;
+}
+
+
+/* =========================================
+   DISEÑO PARA CELULAR
+   ========================================= */
+
+@media (max-width: 900px) {
+
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 70px;
+    }
+
+    .description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .buttons {
+        justify-content: center;
+    }
+
+    .steps {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .benefit-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .header {
+        padding: 0 5%;
+    }
+
+    nav {
+        display: none;
+    }
+
+    .hero {
+        padding: 60px 5%;
+    }
+
+    .hero h1 {
+        font-size: 45px;
+    }
+
+    .turn-card {
+        width: 100%;
+    }
+
+    .section {
+        padding: 70px 5%;
+    }
+
+    .section-title h2 {
+        font-size: 32px;
+    }
+
+    .steps {
+        grid-template-columns: 1fr;
+    }
+
+    .benefit-grid {
+        grid-template-columns: 1fr;
+    }
+
+}

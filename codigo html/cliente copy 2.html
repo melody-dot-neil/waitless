@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WaitLess | Solicitar turno</title>
+
+    <style>
+        :root {
+            --fondo: #080e1c;
+            --panel: #101a2d;
+            --azul: #3978ff;
+            --texto: #f4f7ff;
+            --suave: #9baac4;
+            --borde: rgba(255,255,255,.1);
+            --verde: #36d6a0;
+            --rojo: #ff647c;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--fondo);
+            color: var(--texto);
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding: 20px 6%;
+            border-bottom: 1px solid var(--borde);
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #70a5ff;
+        }
+
+        a {
+            color: #70a5ff;
+            text-decoration: none;
+        }
+
+        main {
+            width: min(1100px, 92%);
+            margin: 40px auto;
+        }
+
+        h1 {
+            margin-bottom: 12px;
+            font-size: clamp(30px, 5vw, 42px);
+        }
+
+        h2 {
+            margin-bottom: 18px;
+            font-size: 20px;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+        .subtitulo {
+            color: var(--suave);
+        }
+
+        .paneles {
+            display: grid;
+            grid-template-columns: 1.2fr .8fr;
+            gap: 22px;
+            margin-top: 30px;
+            align-items: start;
+        }
+
+        .columna {
+            display: grid;
+            gap: 20px;
+        }
+
+        .tarjeta {
+            padding: 23px;
+            border: 1px solid var(--borde);
+            border-radius: 18px;
+            background: var(--panel);
+        }
+
+        label {
+            display: block;
+            margin: 15px 0 8px;
+            color: var(--suave);
+            font-size: 13px;
+        }
+
+        select {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--borde);
+            border-radius: 11px;
+            background: #17243b;
+            color: white;
+            font-size: 15px;
+        }
+
+        button {
+            padding: 13px 17px;
+            border: none;
+            border-radius: 11px;
+            background: var(--azul);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            opacity: .45;
+            cursor: not-allowed;
+        }
+
+        .ancho {
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .secundario {
+            border: 1px solid var(--borde);
+            background: #17243b;
+        }
+
+        .peligro {
+            background: rgba(255,100,124,.12);
+            border: 1px solid rgba(255,100,124,.3);
+            color: #ff8c9e;
+        }
+
+        .dato {
+            margin: 15px 0;
+            padding: 16px;
+            border: 1px solid var(--borde);
+            border-radius: 12px;
+            background: rgba(255,255,255,.025);
+        }
+
+        .dato small {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--suave);
+        }
+
+        .dato strong {
+            font-size: 23px;
+        }
+
+        .numero {
+            margin: 15px 0;
+            font-size: 65px;
+            font-weight: bold;
+        }
+
+        .verde {
+            color: var(--verde);
+        }
+
+        .fila {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--borde);
+        }
+
+        .fila:last-child {
+            border-bottom: none;
+        }
+
+        .fila small {
+            display: block;
+            margin-top: 5px;
+            color: var(--suave);
+        }
+
+        .mensaje {
+            margin-top: 14px;
+            color: var(--suave);
+            font-size: 13px;
+        }
+
+        footer {
+            padding: 25px;
+            border-top: 1px solid var(--borde);
+            color: var(--suave);
+            text-align: center;
+            font-size: 12px;
+        }
+
+        @media (max-width: 750px) {
+            .paneles {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                padding: 17px 4%;
+            }
+
+            .tarjeta {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <a class="logo" href="index.html">Wait<span>Less</span></a>
+    <a href="negocios.html">Cambiar negocio ↗</a>
+</header>
+
+<main>
+    <h1>Solicita tu turno</h1>
+
+    <p class="subtitulo">
+        Elige un negocio, selecciona el servicio y consulta tu posición
+        en la fila.
+    </p>
+
+    <div class="paneles">
+
+        <div class="columna">
+
+            <section class="tarjeta">
+                <h2>1. Selecciona tu negocio</h2>
+
+                <label for="negocio">Negocio</label>
+
+                <select id="negocio">
+                    <option value="Clínica Salud+">Clínica Salud+</option>
+                    <option value="Salón Bella">Salón Bella</option>
+                    <option value="Barbería Central">Barbería Central</option>
+                    <option value="Taller Express">Taller Express</option>
+                    <option value="DentalCare">DentalCare</option>
+                    <option value="Café Central">Café Central</option>
+                </select>
+
+                <label for="servicio">Servicio</label>
+
+                <select id="servicio"></select>
+
+                <button class="ancho" id="solicitar">
+                    Solicitar mi turno
+                </button>
+
+                <p class="mensaje" id="mensaje"></p>
+            </section>
+
+            <section class="tarjeta">
+                <h2>Fila de espera</h2>
+                <div id="fila"></div>
+            </section>
+
+        </div>
+
+        <aside class="columna">
+
+            <section class="tarjeta">
+                <h2>Mi turno</h2>
+
+                <p class="subtitulo" id="nombreNegocio"></p>
+
+                <div class="numero" id="numeroTurno">—</div>
+
+                <p id="estadoTurno" class="verde">
+                    Sin turno activo
+                </p>
+
+                <div class="dato">
+                    <small>Personas delante de ti</small>
+                    <strong id="personas">—</strong>
+                </div>
+
+                <div class="dato">
+                    <small>Tiempo de espera estimado</small>
+                    <strong id="tiempo">—</strong>
+                </div>
+
+                <button
+                    class="ancho peligro"
+                    id="cancelar"
+                    disabled
+                >
+                    Cancelar turno
+                </button>
+            </section>
+
+        </aside>
+    </div>
+</main>
+
+<footer>
+    © 2026 WaitLess · Menos espera, más atención.
+</footer>
+
+<script>
+"use strict";
+
+/*
+    CONFIGURACIÓN COMPARTIDA CON negocio.html
+
+    Cada negocio tiene su propia clave de almacenamiento.
+    Los dos archivos deben usar exactamente estas funciones.
+*/
+
+const servicios = {
+    "Clínica Salud+": [
+        { nombre: "Consulta general", minutos: 15 },
+        { nombre: "Consulta de seguimiento", minutos: 10 }
+    ],
+
+    "Salón Bella": [
+        { nombre: "Corte de cabello", minutos: 25 },
+        { nombre: "Manicure", minutos: 30 }
+    ],
+
+    "Barbería Central": [
+        { nombre: "Corte de cabello", minutos: 20 },
+        { nombre: "Arreglo de barba", minutos: 15 }
+    ],
+
+    "Taller Express": [
+        { nombre: "Cambio de aceite", minutos: 30 },
+        { nombre: "Revisión general", minutos: 40 }
+    ],
+
+    "DentalCare": [
+        { nombre: "Consulta dental", minutos: 20 },
+        { nombre: "Limpieza dental", minutos: 30 }
+    ],
+
+    "Café Central": [
+        { nombre: "Pedido rápido", minutos: 5 },
+        { nombre: "Pedido para llevar", minutos: 8 }
+    ]
+};
+
+function normalizarNegocio(nombre) {
+    return nombre
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "_")
+        .replace(/^_+|_+$/g, "");
+}
+
+function claveCola(nombre) {
+    return "waitless_" + normalizarNegocio(nombre);
+}
+
+function claveMiTurno(nombre) {
+    return "waitlessMiTurno_" + normalizarNegocio(nombre);
+}
+
+function leerCola(nombre) {
+    const clave = claveCola(nombre);
+    const datos = localStorage.getItem(clave);
+
+    if (datos) {
+        try {
+            const cola = JSON.parse(datos);
+
+            if (
+                cola &&
+                Array.isArray(cola.clientes) &&
+                Number.isInteger(cola.siguienteTurno)
+            ) {
+                return cola;
+            }
+        } catch (error) {
+            console.error("Error leyendo la fila:", error);
+        }
+    }
+
+    return {
+        negocio: nombre,
+        siguienteTurno: 1,
+        clientes: []
+    };
+}
+
+function guardarCola(nombre, cola) {
+    localStorage.setItem(
+        claveCola(nombre),
+        JSON.stringify(cola)
+    );
+}
+
+function leerMiTurno(nombre) {
+    const datos = localStorage.getItem(claveMiTurno(nombre));
+
+    if (!datos) {
+        return null;
+    }
+
+    try {
+        const turno = JSON.parse(datos);
+
+        if (
+            turno &&
+            Number.isInteger(turno.turno) &&
+            ["espera", "atendiendo"].includes(turno.estado)
+        ) {
+            return turno;
+        }
+    } catch (error) {
+        console.error("Error leyendo el turno:", error);
+    }
+
+    return null;
+}
+
+function guardarMiTurno(nombre, turno) {
+    const clave = claveMiTurno(nombre);
+
+    if (turno) {
+        localStorage.setItem(clave, JSON.stringify(turno));
+    } else {
+        localStorage.removeItem(clave);
+    }
+}
+
+const selectorNegocio = document.getElementById("negocio");
+const selectorServicio = document.getElementById("servicio");
+
+const elementoNumero = document.getElementById("numeroTurno");
+const elementoEstado = document.getElementById("estadoTurno");
+const elementoPersonas = document.getElementById("personas");
+const elementoTiempo = document.getElementById("tiempo");
+const elementoFila = document.getElementById("fila");
+const elementoMensaje = document.getElementById("mensaje");
+const botonSolicitar = document.getElementById("solicitar");
+const botonCancelar = document.getElementById("cancelar");
+
+let negocioActual;
+
+function cargarServicios() {
+    negocioActual = selectorNegocio.value;
+
+    localStorage.setItem("waitlessNegocio", negocioActual);
+
+    selectorServicio.replaceChildren();
+
+    servicios[negocioActual].forEach(function(servicio) {
+        const opcion = document.createElement("option");
+        opcion.value = servicio.nombre;
+        opcion.textContent = servicio.nombre;
+        selectorServicio.appendChild(opcion);
+    });
+
+    actualizarPantalla();
+}
+
+function solicitarTurno() {
+    const negocio = negocioActual;
+    const servicioNombre = selectorServicio.value;
+
+    const miTurno = leerMiTurno(negocio);
+
+    if (miTurno) {
+        elementoMensaje.textContent =
+            "Ya tienes un turno activo en este negocio.";
+
+        actualizarPantalla();
+        return;
+    }
+
+    const cola = leerCola(negocio);
+
+    const nuevoTurno = {
+        turno: cola.siguienteTurno,
+        estado: "espera",
+        servicio: servicioNombre,
+        negocio: negocio,
+        creado: new Date().toISOString()
+    };
+
+    cola.siguienteTurno++;
+    cola.clientes.push(nuevoTurno);
+
+    guardarCola(negocio, cola);
+    guardarMiTurno(negocio, nuevoTurno);
+
+    elementoMensaje.textContent =
+        "¡Tu turno #" + nuevoTurno.turno + " fue registrado!";
+
+    actualizarPantalla();
+}
+
+function cancelarTurno() {
+    const negocio = negocioActual;
+    const turno = leerMiTurno(negocio);
+
+    if (!turno) {
+        return;
+    }
+
+    if (!confirm("¿Deseas cancelar tu turno?")) {
+        return;
+    }
+
+    const cola = leerCola(negocio);
+
+    cola.clientes = cola.clientes.map(function(cliente) {
+        if (
+            cliente.turno === turno.turno &&
+            cliente.estado !== "finalizado"
+        ) {
+            return {
+                ...cliente,
+                estado: "cancelado"
+            };
+        }
+
+        return cliente;
+    });
+
+    guardarCola(negocio, cola);
+    guardarMiTurno(negocio, null);
+
+    elementoMensaje.textContent = "Tu turno ha sido cancelado.";
+
+    actualizarPantalla();
+}
+
+function actualizarPantalla() {
+    const negocio = negocioActual;
+    const cola = leerCola(negocio);
+    const turno = leerMiTurno(negocio);
+
+    document.getElementById("nombreNegocio").textContent = negocio;
+
+    elementoFila.replaceChildren();
+
+    const esperando = cola.clientes
+        .filter(cliente => cliente.estado === "espera")
+        .sort((a, b) => a.turno - b.turno);
+
+    if (esperando.length === 0) {
+        const mensaje = document.createElement("p");
+        mensaje.className = "mensaje";
+        mensaje.textContent = "No hay personas esperando.";
+        elementoFila.appendChild(mensaje);
+    } else {
+        esperando.forEach(function(cliente, indice) {
+            const fila = document.createElement("div");
+            fila.className = "fila";
+
+            const datos = document.createElement("div");
+
+            const nombre = document.createElement("strong");
+            nombre.textContent = "Turno #" + cliente.turno;
+
+            const servicio = document.createElement("small");
+            servicio.textContent = cliente.servicio;
+
+            datos.append(nombre, servicio);
+
+            const posicion = document.createElement("span");
+            posicion.textContent =
+                indice === 0 ? "Siguiente" : indice + " delante";
+
+            fila.append(datos, posicion);
+            elementoFila.appendChild(fila);
+        });
+    }
+
+    if (!turno) {
+        elementoNumero.textContent = "—";
+        elementoEstado.textContent = "Sin turno activo";
+        elementoPersonas.textContent = "—";
+        elementoTiempo.textContent = "—";
+        botonCancelar.disabled = true;
+        botonSolicitar.disabled = false;
+        return;
+    }
+
+    elementoNumero.textContent = "#" + turno.turno;
+    elementoEstado.textContent =
+        turno.estado === "atendiendo" ? "En atención" : "En espera";
+
+    botonCancelar.disabled = false;
+    botonSolicitar.disabled = true;
+
+    if (turno.estado === "atendiendo") {
+        elementoPersonas.textContent = "0";
+        elementoTiempo.textContent = "Ahora";
+        return;
+    }
+
+    const posicion = esperando.findIndex(
+        cliente => cliente.turno === turno.turno
+    );
+
+    if (posicion < 0) {
+        elementoPersonas.textContent = "—";
+        elementoTiempo.textContent = "Actualizando";
+        return;
+    }
+
+    const personasDelante = posicion;
+
+    const servicio = servicios[negocio].find(
+        item => item.nombre === turno.servicio
+    );
+
+    const minutos = servicio ? servicio.minutos : 10;
+
+    elementoPersonas.textContent = String(personasDelante);
+
+    elementoTiempo.textContent = personasDelante === 0
+        ? "Siguiente"
+        : (personasDelante * minutos) + " min";
+}
+
+selectorNegocio.addEventListener("change", cargarServicios);
+
+botonSolicitar.addEventListener("click", solicitarTurno);
+botonCancelar.addEventListener("click", cancelarTurno);
+
+/*
+    Actualiza la página si el panel empresarial modifica
+    la fila en otra pestaña del mismo navegador.
+*/
+
+window.addEventListener("storage", function(evento) {
+    if (
+        evento.key === claveCola(negocioActual) ||
+        evento.key === claveMiTurno(negocioActual)
+    ) {
+        actualizarPantalla();
+    }
+});
+
+/*
+    Recupera el negocio elegido en el directorio.
+    Si no existe una selección válida, utiliza Clínica Salud+.
+*/
+
+const negocioGuardado = localStorage.getItem("waitlessNegocio");
+
+if (
+    negocioGuardado &&
+    Object.prototype.hasOwnProperty.call(servicios, negocioGuardado)
+) {
+    selectorNegocio.value = negocioGuardado;
+} else {
+    selectorNegocio.value = "Clínica Salud+";
+}
+
+cargarServicios();
+
+/* Refresca los datos periódicamente en esta pestaña. */
+setInterval(actualizarPantalla, 2000);
+</script>
+
+</body>
+</html>

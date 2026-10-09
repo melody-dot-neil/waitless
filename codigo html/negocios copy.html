@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>WaitLess | Directorio de negocios</title>
+
+    <style>
+        :root {
+            --fondo: #07111f;
+            --tarjeta: #101f33;
+            --tarjeta-hover: #172b45;
+            --azul: #3182f6;
+            --azul-claro: #60a5fa;
+            --texto: #f1f5f9;
+            --texto-secundario: #a9b8cc;
+            --borde: #263b55;
+            --verde: #34d399;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(
+                    circle at top right,
+                    #16345a 0,
+                    transparent 35%
+                ),
+                var(--fondo);
+            color: var(--texto);
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+        }
+
+        button,
+        input,
+        a {
+            font: inherit;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .barra-superior {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 6%;
+            border-bottom: 1px solid var(--borde);
+            background: rgba(7, 17, 31, 0.88);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .logo-icono {
+            display: grid;
+            place-items: center;
+            width: 45px;
+            height: 45px;
+            background: var(--azul);
+            border-radius: 14px;
+            font-size: 25px;
+        }
+
+        .logo span:last-child {
+            color: var(--azul-claro);
+        }
+
+        .enlace-inicio {
+            padding: 12px 20px;
+            border: 1px solid var(--borde);
+            border-radius: 12px;
+            color: var(--texto);
+            font-weight: 700;
+        }
+
+        .enlace-inicio:hover {
+            background: var(--tarjeta-hover);
+        }
+
+        .contenedor {
+            width: min(1200px, 90%);
+            margin: auto;
+        }
+
+        .presentacion {
+            padding: 65px 0 35px;
+            text-align: center;
+        }
+
+        .etiqueta {
+            display: inline-block;
+            margin-bottom: 18px;
+            padding: 9px 15px;
+            border: 1px solid #28558a;
+            border-radius: 30px;
+            background: #102844;
+            color: #93c5fd;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        h1 {
+            margin-bottom: 18px;
+            font-size: clamp(32px, 5vw, 53px);
+            line-height: 1.15;
+            letter-spacing: -1.5px;
+        }
+
+        h1 span {
+            color: var(--azul-claro);
+        }
+
+        .descripcion {
+            max-width: 650px;
+            margin: 0 auto;
+            color: var(--texto-secundario);
+            font-size: 18px;
+        }
+
+        .buscador-contenedor {
+            max-width: 650px;
+            margin: 35px auto 18px;
+        }
+
+        .buscador {
+            width: 100%;
+            min-height: 60px;
+            padding: 16px 20px;
+            border: 2px solid var(--borde);
+            border-radius: 16px;
+            outline: none;
+            background: var(--tarjeta);
+            color: var(--texto);
+            font-size: 17px;
+        }
+
+        .buscador:focus {
+            border-color: var(--azul-claro);
+            box-shadow: 0 0 0 3px rgba(49, 130, 246, 0.15);
+        }
+
+        .categorias {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 25px 0 35px;
+        }
+
+        .categoria {
+            min-height: 48px;
+            padding: 10px 17px;
+            border: 1px solid var(--borde);
+            border-radius: 12px;
+            background: var(--tarjeta);
+            color: var(--texto);
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .categoria:hover,
+        .categoria.activa {
+            border-color: var(--azul);
+            background: var(--azul);
+            color: white;
+        }
+
+        .titulo-seccion {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .titulo-seccion h2 {
+            font-size: 26px;
+        }
+
+        .contador {
+            color: var(--texto-secundario);
+            font-size: 15px;
+        }
+
+        .rejilla-negocios {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 24px;
+            padding-bottom: 65px;
+        }
+
+        .negocio {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            padding: 25px;
+            border: 1px solid var(--borde);
+            border-radius: 22px;
+            background: var(--tarjeta);
+            transition:
+                transform 0.2s ease,
+                border-color 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .negocio:hover {
+            transform: translateY(-5px);
+            border-color: #397ac3;
+            background: var(--tarjeta-hover);
+        }
+
+        .icono-negocio {
+            display: grid;
+            place-items: center;
+            width: 70px;
+            height: 70px;
+            margin-bottom: 20px;
+            border: 1px solid #2c4c70;
+            border-radius: 20px;
+            background: #162d49;
+            font-size: 36px;
+        }
+
+        .estado {
+            display: inline-block;
+            align-self: flex-start;
+            margin-bottom: 13px;
+            padding: 6px 10px;
+            border-radius: 8px;
+            background: #103b35;
+            color: var(--verde);
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .negocio h3 {
+            margin-bottom: 9px;
+            font-size: 22px;
+        }
+
+        .negocio p {
+            flex-grow: 1;
+            margin-bottom: 22px;
+            color: var(--texto-secundario);
+            font-size: 15px;
+        }
+
+        .boton-elegir {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            min-height: 56px;
+            padding: 14px 18px;
+            border: none;
+            border-radius: 13px;
+            background: var(--azul);
+            color: white;
+            cursor: pointer;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 800;
+            transition: background 0.2s ease;
+        }
+
+        .boton-elegir:hover {
+            background: #2563eb;
+        }
+
+        .boton-elegir:focus-visible,
+        .categoria:focus-visible,
+        .enlace-inicio:focus-visible {
+            outline: 3px solid #93c5fd;
+            outline-offset: 3px;
+        }
+
+        .sin-resultados {
+            grid-column: 1 / -1;
+            padding: 35px;
+            border: 1px solid var(--borde);
+            border-radius: 18px;
+            color: var(--texto-secundario);
+            text-align: center;
+        }
+
+        footer {
+            padding: 25px 6%;
+            border-top: 1px solid var(--borde);
+            color: var(--texto-secundario);
+            text-align: center;
+        }
+
+        @media (max-width: 900px) {
+            .rejilla-negocios {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 600px) {
+            .barra-superior {
+                padding: 15px 5%;
+            }
+
+            .logo {
+                font-size: 21px;
+            }
+
+            .logo-icono {
+                width: 40px;
+                height: 40px;
+            }
+
+            .enlace-inicio {
+                padding: 10px 12px;
+                font-size: 14px;
+            }
+
+            .presentacion {
+                padding-top: 45px;
+            }
+
+            .descripcion {
+                font-size: 16px;
+            }
+
+            .rejilla-negocios {
+                grid-template-columns: 1fr;
+            }
+
+            .titulo-seccion {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .negocio {
+                padding: 22px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="barra-superior">
+        <a class="logo" href="index.html" aria-label="WaitLess, página principal">
+            <span class="logo-icono">W</span>
+            <span>Wait<span>Less</span></span>
+        </a>
+
+        <a class="enlace-inicio" href="index.html">
+            Inicio
+        </a>
+    </header>
+
+    <main class="contenedor">
+
+        <section class="presentacion">
+            <span class="etiqueta">ATENCIÓN MÁS INTELIGENTE</span>
+
+            <h1>
+                ¿Dónde necesitas<br>
+                <span>recibir atención?</span>
+            </h1>
+
+            <p class="descripcion">
+                Elige tu negocio, selecciona el servicio que necesitas
+                y solicita tu turno de forma sencilla.
+                Menos espera, más atención.
+            </p>
+
+            <div class="buscador-contenedor">
+                <label for="buscador" style="display:block; text-align:left; margin-bottom:8px;">
+                    Buscar un negocio
+                </label>
+
+                <input
+                    type="search"
+                    id="buscador"
+                    class="buscador"
+                    placeholder="Ejemplo: clínica, salón, café..."
+                    autocomplete="off"
+                >
+            </div>
+
+            <div class="categorias" aria-label="Filtrar negocios por categoría">
+                <button class="categoria activa" type="button" data-categoria="Todos">
+                    Todos
+                </button>
+
+                <button class="categoria" type="button" data-categoria="Salud">
+                    Salud
+                </button>
+
+                <button class="categoria" type="button" data-categoria="Belleza">
+                    Belleza
+                </button>
+
+                <button class="categoria" type="button" data-categoria="Automotriz">
+                    Automotriz
+                </button>
+
+                <button class="categoria" type="button" data-categoria="Alimentos">
+                    Alimentos
+                </button>
+            </div>
+        </section>
+
+        <section aria-labelledby="titulo-negocios">
+            <div class="titulo-seccion">
+                <h2 id="titulo-negocios">Negocios disponibles</h2>
+                <span class="contador" id="contador"></span>
+            </div>
+
+            <div class="rejilla-negocios" id="rejillaNegocios"></div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p><strong>WaitLess</strong> — Menos espera, más atención.</p>
+        <p>Una forma más sencilla de organizar tu atención.</p>
+    </footer>
+
+    <script>
+        "use strict";
+
+        const negocios = [
+            {
+                nombre: "Clínica Salud+",
+                categoria: "Salud",
+                icono: "🏥",
+                descripcion: "Atención médica general y consultas de seguimiento."
+            },
+            {
+                nombre: "Salón Bella",
+                categoria: "Belleza",
+                icono: "💇",
+                descripcion: "Servicios de belleza, cuidado personal y manicure."
+            },
+            {
+                nombre: "Barbería Central",
+                categoria: "Belleza",
+                icono: "💈",
+                descripcion: "Cortes de cabello y arreglo de barba."
+            },
+            {
+                nombre: "Taller Express",
+                categoria: "Automotriz",
+                icono: "🔧",
+                descripcion: "Mantenimiento de vehículos y revisiones generales."
+            },
+            {
+                nombre: "DentalCare",
+                categoria: "Salud",
+                icono: "🦷",
+                descripcion: "Atención dental, consultas y limpieza dental."
+            },
+            {
+                nombre: "Café Central",
+                categoria: "Alimentos",
+                icono: "☕",
+                descripcion: "Pedidos rápidos y pedidos para llevar."
+            }
+        ];
+
+        const rejilla = document.getElementById("rejillaNegocios");
+        const buscador = document.getElementById("buscador");
+        const contador = document.getElementById("contador");
+        const botonesCategoria = document.querySelectorAll(".categoria");
+
+        let categoriaActual = "Todos";
+
+        function seleccionarNegocio(nombre) {
+            const existe = negocios.some(
+                negocio => negocio.nombre === nombre
+            );
+
+            if (!existe) {
+                alert("No se encontró ese negocio. Inténtalo de nuevo.");
+                return;
+            }
+
+            try {
+                localStorage.setItem("waitlessNegocio", nombre);
+                window.location.href = "cliente.html";
+            } catch (error) {
+                alert(
+                    "No se pudo guardar el negocio seleccionado. " +
+                    "Abre WaitLess desde una carpeta local o un servidor local."
+                );
+                console.error("Error al guardar el negocio:", error);
+            }
+        }
+
+        function crearTarjeta(negocio) {
+            const tarjeta = document.createElement("article");
+            tarjeta.className = "negocio";
+
+            const icono = document.createElement("div");
+            icono.className = "icono-negocio";
+            icono.setAttribute("aria-hidden", "true");
+            icono.textContent = negocio.icono;
+
+            const estado = document.createElement("span");
+            estado.className = "estado";
+            estado.textContent = "● Disponible";
+
+            const titulo = document.createElement("h3");
+            titulo.textContent = negocio.nombre;
+
+            const descripcion = document.createElement("p");
+            descripcion.textContent = negocio.descripcion;
+
+            const boton = document.createElement("button");
+            boton.type = "button";
+            boton.className = "boton-elegir";
+            boton.textContent = "Elegir negocio →";
+
+            boton.addEventListener("click", function () {
+                seleccionarNegocio(negocio.nombre);
+            });
+
+            tarjeta.append(
+                icono,
+                estado,
+                titulo,
+                descripcion,
+                boton
+            );
+
+            return tarjeta;
+        }
+
+        function mostrarNegocios() {
+            const texto = buscador.value
+                .trim()
+                .toLocaleLowerCase("es");
+
+            const filtrados = negocios.filter(function (negocio) {
+                const coincideTexto = (
+                    negocio.nombre.toLocaleLowerCase("es").includes(texto) ||
+                    negocio.descripcion.toLocaleLowerCase("es").includes(texto)
+                );
+
+                const coincideCategoria = (
+                    categoriaActual === "Todos" ||
+                    negocio.categoria === categoriaActual
+                );
+
+                return coincideTexto && coincideCategoria;
+            });
+
+            rejilla.replaceChildren();
+
+            contador.textContent =
+                filtrados.length +
+                (filtrados.length === 1 ? " negocio" : " negocios");
+
+            if (filtrados.length === 0) {
+                const mensaje = document.createElement("div");
+                mensaje.className = "sin-resultados";
+                mensaje.textContent =
+                    "No encontramos negocios con esa búsqueda. " +
+                    "Prueba con otra palabra o categoría.";
+
+                rejilla.appendChild(mensaje);
+                return;
+            }
+
+            filtrados.forEach(function (negocio) {
+                rejilla.appendChild(crearTarjeta(negocio));
+            });
+        }
+
+        buscador.addEventListener("input", mostrarNegocios);
+
+        botonesCategoria.forEach(function (boton) {
+            boton.addEventListener("click", function () {
+                categoriaActual = boton.dataset.categoria;
+
+                botonesCategoria.forEach(function (otroBoton) {
+                    otroBoton.classList.remove("activa");
+                });
+
+                boton.classList.add("activa");
+                mostrarNegocios();
+            });
+        });
+
+        mostrarNegocios();
+    </script>
+
+</body>
+</html>

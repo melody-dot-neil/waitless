@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>WaitLess | Panel del negocio</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #071426;
+            color: #ffffff;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding: 18px 6%;
+            background: #0b1d35;
+            border-bottom: 1px solid #183c63;
+        }
+
+        .logo {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #1685ff;
+        }
+
+        .volver {
+            color: white;
+            text-decoration: none;
+            padding: 10px 14px;
+            background: #12365d;
+            border-radius: 8px;
+        }
+
+        main {
+            width: min(1150px, 94%);
+            margin: 30px auto;
+        }
+
+        .panel {
+            padding: 23px;
+            margin-bottom: 22px;
+            background: #0c213d;
+            border: 1px solid #194773;
+            border-radius: 15px;
+        }
+
+        h1 {
+            margin-top: 0;
+            font-size: 30px;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        .descripcion {
+            color: #b8c8dc;
+            line-height: 1.6;
+        }
+
+        label {
+            display: block;
+            margin: 15px 0 8px;
+            font-weight: bold;
+        }
+
+        select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #31577d;
+            border-radius: 9px;
+            background: #071426;
+            color: white;
+            font-size: 16px;
+        }
+
+        button {
+            border: none;
+            border-radius: 8px;
+            padding: 11px 15px;
+            background: #087cf0;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            filter: brightness(1.12);
+        }
+
+        button:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        .estadisticas {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .estadistica {
+            padding: 20px;
+            background: #102c4d;
+            border-radius: 12px;
+        }
+
+        .estadistica small {
+            display: block;
+            color: #b8c8dc;
+            margin-bottom: 12px;
+        }
+
+        .estadistica strong {
+            font-size: 28px;
+        }
+
+        .fila-acciones {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 18px 0;
+        }
+
+        .finalizar {
+            background: #13834e;
+        }
+
+        .cancelar {
+            background: #a82e42;
+        }
+
+        .lista {
+            display: grid;
+            gap: 14px;
+        }
+
+        .cliente {
+            padding: 18px;
+            border: 1px solid #234d75;
+            background: #0a1a30;
+            border-radius: 12px;
+        }
+
+        .cliente-encabezado {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .numero {
+            font-size: 22px;
+            font-weight: bold;
+            color: #58a6ff;
+        }
+
+        .cliente p {
+            color: #c0d0e3;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        .etiqueta {
+            display: inline-block;
+            padding: 6px 10px;
+            background: #17395d;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .estado-espera {
+            background: #55421a;
+            color: #ffe5a3;
+        }
+
+        .estado-atencion {
+            background: #164d37;
+            color: #a7ffd1;
+        }
+
+        .estado-finalizado {
+            background: #17395d;
+            color: #c6e0ff;
+        }
+
+        .vacio {
+            padding: 24px;
+            text-align: center;
+            color: #b8c8dc;
+            border: 1px dashed #31577d;
+            border-radius: 12px;
+        }
+
+        .mensaje {
+            display: none;
+            padding: 13px;
+            margin-bottom: 18px;
+            border-radius: 9px;
+            background: #17395d;
+            line-height: 1.5;
+        }
+
+        .nota {
+            color: #a7bed8;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px 15px;
+            color: #8198b5;
+            font-size: 13px;
+        }
+
+        @media (max-width: 760px) {
+            .estadisticas {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 450px) {
+            .estadisticas {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            header {
+                padding: 16px 4%;
+            }
+
+            .panel {
+                padding: 17px;
+            }
+
+            h1 {
+                font-size: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <a href="index.html" class="logo">Wait<span>Less</span></a>
+    <a href="index.html" class="volver">← Inicio</a>
+</header>
+
+<main>
+
+    <section class="panel">
+        <h1>Panel del negocio</h1>
+
+        <p class="descripcion">
+            Administra los turnos, organiza la fila y registra
+            la atención de tus clientes.
+        </p>
+
+        <label for="selectorNegocio">Selecciona tu negocio</label>
+
+        <select id="selectorNegocio">
+            <option value="Clínica Salud+">🏥 Clínica Salud+</option>
+            <option value="Salón Bella">💇 Salón Bella</option>
+            <option value="Barbería Central">💈 Barbería Central</option>
+            <option value="Taller Express">🔧 Taller Express</option>
+            <option value="DentalCare">🦷 DentalCare</option>
+            <option value="Café Central">☕ Café Central</option>
+        </select>
+
+        <p class="nota">
+            Selecciona el negocio cuyos turnos deseas administrar.
+        </p>
+    </section>
+
+    <div id="mensaje" class="mensaje" role="status"></div>
+
+    <section class="panel">
+        <h2 id="tituloCola">Turnos de Clínica Salud+</h2>
+
+        <div class="estadisticas">
+            <div class="estadistica">
+                <small>En espera</small>
+                <strong id="totalEspera">0</strong>
+            </div>
+
+            <div class="estadistica">
+                <small>En atención</small>
+                <strong id="totalAtencion">0</strong>
+            </div>
+
+            <div class="estadistica">
+                <small>Finalizados</small>
+                <strong id="totalFinalizados">0</strong>
+            </div>
+
+            <div class="estadistica">
+                <small>Total registrados</small>
+                <strong id="totalRegistrados">0</strong>
+            </div>
+        </div>
+
+        <div class="fila-acciones">
+            <button id="llamarButton" type="button">
+                📣 Llamar siguiente
+            </button>
+
+            <button id="finalizarButton" class="finalizar" type="button">
+                ✅ Finalizar atención
+            </button>
+        </div>
+
+        <p class="nota">
+            Los turnos se comparten entre las páginas que utilizan
+            el mismo almacenamiento del navegador.
+        </p>
+    </section>
+
+    <section class="panel">
+        <h2>📋 Fila de clientes</h2>
+        <div id="listaClientes" class="lista"></div>
+    </section>
+
+    <section class="panel">
+        <h2>🕘 Historial de turnos</h2>
+        <div id="historial" class="lista"></div>
+    </section>
+
+</main>
+
+<footer>
+    WaitLess — Menos espera, más atención.
+</footer>
+
+<script>
+    "use strict";
+
+    const elemento = id => document.getElementById(id);
+
+    let negocioActual = "Clínica Salud+";
+
+    function crearClaveNegocio(nombre) {
+        return nombre
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, "_")
+            .replace(/^_+|_+$/g, "");
+    }
+
+    function claveCola() {
+        return "waitless_" + crearClaveNegocio(negocioActual);
+    }
+
+    function obtenerCola() {
+        const guardado = localStorage.getItem(claveCola());
+
+        if (!guardado) {
+            return {
+                negocio: negocioActual,
+                turnoActual: 0,
+                siguienteTurno: 1,
+                clientes: []
+            };
+        }
+
+        let cola;
+
+        try {
+            cola = JSON.parse(guardado);
+        } catch (error) {
+            throw new Error("No se pudieron leer los turnos guardados.");
+        }
+
+        if (!cola || !Array.isArray(cola.clientes)) {
+            throw new Error(
+                "El formato de los turnos no es válido. Revisa el almacenamiento."
+            );
+        }
+
+        return cola;
+    }
+
+    function guardarCola(cola) {
+        localStorage.setItem(claveCola(), JSON.stringify(cola));
+    }
+
+    function mostrarMensaje(texto) {
+        const caja = elemento("mensaje");
+        caja.textContent = texto;
+        caja.style.display = "block";
+    }
+
+    function ocultarMensaje() {
+        elemento("mensaje").style.display = "none";
+    }
+
+    function escaparHTML(texto) {
+        return String(texto ?? "").replace(/[&<>"']/g, caracter => ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        })[caracter]);
+    }
+
+    function obtenerTurnosActivos(cola) {
+        return cola.clientes
+            .filter(cliente =>
+                cliente.estado === "En espera" ||
+                cliente.estado === "En atención"
+            )
+            .sort((a, b) => a.turno - b.turno);
+    }
+
+    function contarEstado(cola, estado) {
+        return cola.clientes.filter(cliente =>
+            cliente.estado === estado
+        ).length;
+    }
+
+    function actualizarEstadisticas(cola) {
+        elemento("totalEspera").textContent =
+            contarEstado(cola, "En espera");
+
+        elemento("totalAtencion").textContent =
+            contarEstado(cola, "En atención");
+
+        elemento("totalFinalizados").textContent =
+            contarEstado(cola, "Finalizado");
+
+        elemento("totalRegistrados").textContent =
+            cola.clientes.length;
+    }
+
+    function renderizarLista(cola) {
+        const lista = elemento("listaClientes");
+
+        const activos = obtenerTurnosActivos(cola);
+
+        if (activos.length === 0) {
+            lista.innerHTML =
+                '<div class="vacio">No hay clientes esperando en este negocio.</div>';
+        } else {
+            lista.innerHTML = activos.map(cliente => {
+                const estadoClase =
+                    cliente.estado === "En atención"
+                        ? "estado-atencion"
+                        : "estado-espera";
+
+                return `
+                    <article class="cliente">
+                        <div class="cliente-encabezado">
+                            <span class="numero">
+                                Turno #${escaparHTML(cliente.turno)}
+                            </span>
+
+                            <span class="etiqueta ${estadoClase}">
+                                ${escaparHTML(cliente.estado)}
+                            </span>
+                        </div>
+
+                        <p>
+                            <strong>Cliente:</strong>
+                            ${escaparHTML(cliente.nombre)}
+                        </p>
+
+                        <p>
+                            <strong>Servicio:</strong>
+                            ${escaparHTML(cliente.servicio)}
+                        </p>
+
+                        <p>
+                            <strong>Tiempo del servicio:</strong>
+                            ${escaparHTML(cliente.minutos ?? 0)} minutos
+                        </p>
+                    </article>
+                `;
+            }).join("");
+        }
+
+        const historial = elemento("historial");
+
+        const terminados = cola.clientes
+            .filter(cliente =>
+                cliente.estado === "Finalizado" ||
+                cliente.estado === "Cancelado"
+            )
+            .slice()
+            .reverse();
+
+        if (terminados.length === 0) {
+            historial.innerHTML =
+                '<div class="vacio">Todavía no hay turnos finalizados o cancelados.</div>';
+        } else {
+            historial.innerHTML = terminados.map(cliente => `
+                <article class="cliente">
+                    <div class="cliente-encabezado">
+                        <span class="numero">
+                            Turno #${escaparHTML(cliente.turno)}
+                        </span>
+
+                        <span class="etiqueta estado-finalizado">
+                            ${escaparHTML(cliente.estado)}
+                        </span>
+                    </div>
+
+                    <p>
+                        <strong>Cliente:</strong>
+                        ${escaparHTML(cliente.nombre)}
+                    </p>
+
+                    <p>
+                        <strong>Servicio:</strong>
+                        ${escaparHTML(cliente.servicio)}
+                    </p>
+                </article>
+            `).join("");
+        }
+    }
+
+    function actualizarBotones(cola) {
+        const activos = obtenerTurnosActivos(cola);
+
+        const atendiendo = activos.some(cliente =>
+            cliente.estado === "En atención"
+        );
+
+        const esperando = activos.some(cliente =>
+            cliente.estado === "En espera"
+        );
+
+        elemento("llamarButton").disabled =
+            atendiendo || !esperando;
+
+        elemento("finalizarButton").disabled = !atendiendo;
+    }
+
+    function actualizarPanel() {
+        try {
+            const cola = obtenerCola();
+
+            elemento("tituloCola").textContent =
+                "Turnos de " + negocioActual;
+
+            actualizarEstadisticas(cola);
+            renderizarLista(cola);
+            actualizarBotones(cola);
+
+            ocultarMensaje();
+        } catch (error) {
+            mostrarMensaje(error.message);
+        }
+    }
+
+    function llamarSiguiente() {
+        try {
+            const cola = obtenerCola();
+
+            const yaAtendiendo = cola.clientes.some(cliente =>
+                cliente.estado === "En atención"
+            );
+
+            if (yaAtendiendo) {
+                mostrarMensaje(
+                    "Finaliza la atención actual antes de llamar al siguiente cliente."
+                );
+                return;
+            }
+
+            const siguiente = cola.clientes
+                .filter(cliente => cliente.estado === "En espera")
+                .sort((a, b) => a.turno - b.turno)[0];
+
+            if (!siguiente) {
+                mostrarMensaje("No hay clientes esperando.");
+                return;
+            }
+
+            siguiente.estado = "En atención";
+            siguiente.inicioAtencion = new Date().toISOString();
+
+            cola.turnoActual = siguiente.turno;
+
+            guardarCola(cola);
+            actualizarPanel();
+
+            mostrarMensaje(
+                "Ahora se está atendiendo a " + siguiente.nombre +
+                ", turno #" + siguiente.turno + "."
+            );
+        } catch (error) {
+            mostrarMensaje(error.message);
+        }
+    }
+
+    function finalizarAtencion() {
+        try {
+            const cola = obtenerCola();
+
+            const cliente = cola.clientes.find(item =>
+                item.estado === "En atención"
+            );
+
+            if (!cliente) {
+                mostrarMensaje("No hay ningún cliente en atención.");
+                return;
+            }
+
+            cliente.estado = "Finalizado";
+            cliente.finAtencion = new Date().toISOString();
+
+            guardarCola(cola);
+            actualizarPanel();
+
+            mostrarMensaje(
+                "La atención del turno #" + cliente.turno +
+                " ha finalizado correctamente."
+            );
+        } catch (error) {
+            mostrarMensaje(error.message);
+        }
+    }
+
+    function cambiarNegocio() {
+        negocioActual = elemento("selectorNegocio").value;
+
+        localStorage.setItem("waitlessNegocioPanel", negocioActual);
+
+        actualizarPanel();
+    }
+
+    elemento("selectorNegocio").addEventListener(
+        "change",
+        cambiarNegocio
+    );
+
+    elemento("llamarButton").addEventListener(
+        "click",
+        llamarSiguiente
+    );
+
+    elemento("finalizarButton").addEventListener(
+        "click",
+        finalizarAtencion
+    );
+
+    window.addEventListener("storage", evento => {
+        if (evento.key === claveCola()) {
+            actualizarPanel();
+        }
+    });
+
+    const negocioGuardado =
+        localStorage.getItem("waitlessNegocioPanel");
+
+    if (
+        negocioGuardado &&
+        Array.from(elemento("selectorNegocio").options)
+            .some(opcion => opcion.value === negocioGuardado)
+    ) {
+        negocioActual = negocioGuardado;
+        elemento("selectorNegocio").value = negocioGuardado;
+    }
+
+    actualizarPanel();
+
+    setInterval(actualizarPanel, 3000);
+</script>
+
+</body>
+</html>
